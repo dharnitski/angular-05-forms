@@ -19,6 +19,6 @@ export class TemplateDrivenComponent {
   };
 
   onSubmit(form: NgForm) {
-    console.log(form);
+    console.log(this.user);
   }
 }
