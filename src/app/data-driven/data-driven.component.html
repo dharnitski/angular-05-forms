@@ -8,6 +8,9 @@
         <div class="form-group">
             <label for="email">E-Mail</label>
             <input type="text" class="form-control" id="email" formControlName="email">
+            <div *ngIf="!myForm.controls['email'].valid">
+                Invalid Email
+            </div>
         </div>
     </div>
 
@@ -26,5 +29,5 @@
         </div>
     </div>
     <button type="button" class="btn btn-default">Add Hobby</button>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" [disabled]="!myForm.valid">Submit</button>
 </form>
