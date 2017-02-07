@@ -11,6 +11,13 @@ import { NgForm } from '@angular/forms';
   `]
 })
 export class TemplateDrivenComponent {
+
+  user = {
+    username: 'Dmitry',
+    email: 'dmitry@test.com',
+    password: 'test'
+  };
+
   onSubmit(form: NgForm) {
     console.log(form);
   }
