@@ -15,4 +15,8 @@ export class DataDrivenComponent {
             'password': new FormControl()
         });
     }
+
+    onSubmit(){
+        console.log(this.myForm.value);
+    }
 }
