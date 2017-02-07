@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormGroup, FormControl, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormControl, Validators, FormArray, FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'data-driven',
@@ -18,10 +18,10 @@ export class DataDrivenComponent {
         'female'
     ];
 
-    constructor() {
+    constructor(private formBuilder: FormBuilder) {
         this.myForm = new FormGroup({
             'userData': new FormGroup({
-                'username': new FormControl('Dmitry', Validators.required),
+                'username': new FormControl('Dmitry', [Validators.required, this.exampleValidator]),
                 'email': new FormControl('dmitry@test.com', [Validators.required, Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")]),
             }),
             'password': new FormControl('', Validators.required),
@@ -31,6 +31,21 @@ export class DataDrivenComponent {
                 new FormControl('Biking', Validators.required)
             ])
         });
+
+        // this.myForm = formBuilder.group(
+        //     formBuilder.group({
+        //         'userData': formBuilder.group({
+        //             'username': formBuilder.control('Dmitry', Validators.required),
+        //             'email': formBuilder.control('dmitry@test.com', [Validators.required, Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")]),
+        //         }),
+        //         'password': formBuilder.control('', Validators.required),
+        //         'gender': formBuilder.control('female'),
+        //         'hobbies': formBuilder.array([
+        //             formBuilder.control('Cooking', Validators.required),
+        //             formBuilder.control('Biking', Validators.required)
+        //         ])
+        //     })
+        // );
     }
 
     onSubmit() {
@@ -39,5 +54,12 @@ export class DataDrivenComponent {
 
     onAddHobby() {
         (<FormArray>this.myForm.controls['hobbies']).push(new FormControl('', Validators.required));
+    }
+
+    exampleValidator(control: FormControl): { [s: string]: boolean } {
+        if (control.value === 'Example') {
+            return { example: true };
+        }
+        return null;
     }
 }
